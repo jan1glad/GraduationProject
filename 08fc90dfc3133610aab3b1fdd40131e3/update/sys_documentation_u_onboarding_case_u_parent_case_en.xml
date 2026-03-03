@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="u_parent_case" label="Parent Case" language="en" table="u_onboarding_case">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_parent_case</element>
+            <help/>
+            <hint/>
+            <label>Parent Case</label>
+            <language>en</language>
+            <name>u_onboarding_case</name>
+            <plural/>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-03-03 14:12:36</sys_created_on>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_name>Parent Case</sys_name>
+            <sys_package display_value="Employee Onboarding" source="08fc90dfc3133610aab3b1fdd40131e3">08fc90dfc3133610aab3b1fdd40131e3</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Employee Onboarding">08fc90dfc3133610aab3b1fdd40131e3</sys_scope>
+            <sys_update_name>sys_documentation_u_onboarding_case_u_parent_case_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-03-03 14:12:37</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

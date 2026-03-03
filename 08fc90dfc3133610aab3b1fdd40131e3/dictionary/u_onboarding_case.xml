@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="ed204d93c3573610aab3b1fdd4013191" extends="task" label="Onboarding Case" max_length="40" name="u_onboarding_case" type="collection">
+        <element label="Parent Case" max_length="32" name="u_parent_case" reference="u_onboarding_case" type="reference"/>
+        <element label="Department" max_length="32" name="u_department" reference="cmn_department" type="reference"/>
+        <element label="Manager" max_length="32" name="u_manager" reference="sys_user" type="reference"/>
+        <element choice="1" label="Equipment" max_length="40" name="u_equipment" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Laptop" sequence="0" value="laptop"/>
+            </choice>
+        </element>
+        <element label="Name" max_length="40" name="u_name" type="string"/>
+        <element choice="3" label="Employment Type" max_length="40" name="u_employment_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="B2B" sequence="1" value="b2b"/>
+                <element inactive_on_update="false" label="UoP" sequence="0" value="uop"/>
+                <element inactive_on_update="false" label="UZ" sequence="2" value="uz"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" type="string"/>
+        <element label="Start of employment" max_length="255" name="u_start_of_employment" type="glide_date"/>
+        <element label="Start Date" max_length="40" name="u_start_date" type="calendar_date_time"/>
+        <element label="Surname" max_length="40" name="u_surname" type="string"/>
+        <element label="Job Title" max_length="40" name="u_job_title" type="string"/>
+        <element label="Personal Email" max_length="40" name="u_personal_email" type="string"/>
+    </element>
+</database>

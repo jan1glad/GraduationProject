@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-03 14:09:42</sys_created_on>
+        <sys_id>793a41d7c3973610aab3b1fdd401314b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>u_onboarding_task.hr</sys_name>
+        <sys_package display_value="Employee Onboarding" source="08fc90dfc3133610aab3b1fdd40131e3">08fc90dfc3133610aab3b1fdd40131e3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding">08fc90dfc3133610aab3b1fdd40131e3</sys_scope>
+        <sys_security_acl display_value="u_onboarding_task">753a41d7c3973610aab3b1fdd4013146</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_793a41d7c3973610aab3b1fdd401314b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-03 14:09:42</sys_updated_on>
+        <sys_user_role display_value="hr" name="hr">72208d93c3573610aab3b1fdd401317e</sys_user_role>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Employee Onboarding">08fc90dfc3133610aab3b1fdd40131e3</application>
+        <file_path/>
+        <instance_id>808ca387db1ef91002d91729139619f8</instance_id>
+        <instance_name>dev209241</instance_name>
+        <name>sys_security_acl_role_793a41d7c3973610aab3b1fdd401314b</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-03-03 14:09:42</sys_created_on><sys_id>793a41d7c3973610aab3b1fdd401314b</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_onboarding_task.hr</sys_name><sys_package display_value="Employee Onboarding" source="08fc90dfc3133610aab3b1fdd40131e3">08fc90dfc3133610aab3b1fdd40131e3</sys_package><sys_policy/><sys_scope display_value="Employee Onboarding">08fc90dfc3133610aab3b1fdd40131e3</sys_scope><sys_security_acl display_value="u_onboarding_task">753a41d7c3973610aab3b1fdd4013146</sys_security_acl><sys_update_name>sys_security_acl_role_793a41d7c3973610aab3b1fdd401314b</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-03-03 14:09:42</sys_updated_on><sys_user_role display_value="hr" name="hr">72208d93c3573610aab3b1fdd401317e</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>-88562984</payload_hash>
+        <record_name>u_onboarding_task.hr</record_name>
+        <reverted_from/>
+        <source>f04dc17ec31b3210aab3b1fdd401317e</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-03 14:09:42</sys_created_on>
+        <sys_id>7d3a41d7c3973610aab3b1fdd4013150</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19cb40882b00000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-03 14:09:42</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>3d3a41d78d97361093d03c562d886d4f</update_guid>
+        <update_guid_history>3d3a41d78d97361093d03c562d886d4f:-88562984</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="u_onboarding_task.hr">dc415d57c3d73610aab3b1fdd4013118</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-03 14:40:27</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>0e8ccf52868541ee8415fa575af42f49</sys_id>
+        <sys_metadata>793a41d7c3973610aab3b1fdd401314b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>u_onboarding_task.hr</sys_name>
+        <sys_package display_value="Employee Onboarding" source="08fc90dfc3133610aab3b1fdd40131e3">08fc90dfc3133610aab3b1fdd40131e3</sys_package>
+        <sys_parent display_value="">753a41d7c3973610aab3b1fdd4013146</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding">08fc90dfc3133610aab3b1fdd40131e3</sys_scope>
+        <sys_scope_delete display_value="">139814b06c40494084bb5f7bae83e5a1</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_793a41d7c3973610aab3b1fdd401314b</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_793a41d7c3973610aab3b1fdd401314b">7d3a41d7c3973610aab3b1fdd4013150</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-03 14:40:27</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
