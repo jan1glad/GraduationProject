@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>u_onboarding_task</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="u_onboarding_task">stateCHANGESTO3^EQ<item display_value="Closed Complete" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="3"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Close Onboarding Case when Tasks closed</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous) {
+
+    if (current.getValue('state') != '3') {
+        return;
+    }
+
+    if (!current.getValue('u_onboarding_case')) {
+        return;
+    }
+
+    var gr = new GlideRecord('u_onboarding_task');
+    gr.addQuery('u_onboarding_case', current.getValue('u_onboarding_case'));
+    gr.addQuery('sys_id', '!=', current.getUniqueValue());
+    gr.addQuery('state', '!=', '3');
+    gr.query();
+
+    if (gr.hasNext()) {
+        return;
+    }
+
+    var caseGr = new GlideRecord('u_onboarding_case');
+    var caseId = current.getValue('u_onboarding_case');
+
+    if (!caseGr.get(caseId)) {
+        return;
+    }
+
+    caseGr.setValue('u_state', 'closed_completed');
+    caseGr.update();
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-21 22:39:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ae6a278d47bb7650a0d66d1f316d4300</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Close Onboarding Case when Tasks closed</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sys_script_ae6a278d47bb7650a0d66d1f316d4300</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-21 23:07:06</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=ae6a278d47bb7650a0d66d1f316d4300"/>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>ae6a278d47bb7650a0d66d1f316d4300</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-21 22:39:22</sys_created_on>
+        <sys_id>d77b670147fb7650a0d66d1f316d4332</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-21 22:39:22</sys_updated_on>
+        <table>sys_script</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

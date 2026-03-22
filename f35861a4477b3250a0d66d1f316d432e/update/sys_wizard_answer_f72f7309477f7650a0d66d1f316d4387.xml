@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_wizard_answer">
+    <sys_wizard_answer action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <answer>New Leave Request</answer>
+        <button_label/>
+        <dependent_value/>
+        <element/>
+        <name>Leave Request</name>
+        <next_question/>
+        <order>100</order>
+        <payload_name/>
+        <question display_value="Task" name="Task">49fb6e42187232108bb255f46a373ade</question>
+        <roles/>
+        <script/>
+        <sys_class_name>sys_wizard_answer</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-22 00:05:26</sys_created_on>
+        <sys_id>f72f7309477f7650a0d66d1f316d4387</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Leave Request</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sys_wizard_answer_f72f7309477f7650a0d66d1f316d4387</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-22 00:05:26</sys_updated_on>
+        <table/>
+        <target_url>u_leave_request.do</target_url>
+        <type>1</type>
+    </sys_wizard_answer>
+</record_update>

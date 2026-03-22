@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="480e8fc147f77650a0d66d1f316d43ba" extends="task" label="Onboarding Task" max_length="40" name="u_onboarding_task" type="collection">
+        <element choice="3" label="Task Type" max_length="40" name="u_task_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Entrance card" sequence="2" value="entrance_card"/>
+                <element inactive_on_update="false" label="Equipment" sequence="0" value="equipment"/>
+                <element inactive_on_update="false" label="Account access" sequence="1" value="account_access"/>
+                <element inactive_on_update="false" label="User verification &amp; Documents" sequence="3" value="user_verification_documents"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" type="string"/>
+        <element label="Onboarding Case" max_length="32" name="u_onboarding_case" reference="u_onboarding_case" type="reference"/>
+    </element>
+</database>

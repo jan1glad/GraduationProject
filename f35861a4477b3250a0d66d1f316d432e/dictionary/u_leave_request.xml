@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="e32f3309477f7650a0d66d1f316d43fe" extends="task" label="Leave Request" max_length="40" name="u_leave_request" type="collection">
+        <element label="Start date" max_length="255" name="u_start_date" type="glide_date_time"/>
+        <element label="Working days" max_length="40" name="u_working_days" type="string"/>
+        <element label="End date" max_length="255" name="u_end_date" type="calendar_date_time"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" type="string"/>
+    </element>
+</database>
