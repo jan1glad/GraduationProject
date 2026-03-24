@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_category">
+    <sc_cat_item_category action="DELETE">
+        <sc_cat_item display_value="Register or update vehicle for parking">d0287ca547f33a50a0d66d1f316d438b</sc_cat_item>
+        <sc_category display_value="Standard Changes">b0fdfb01932002009ca87a75e57ffbe9</sc_category>
+        <sys_class_name>sc_cat_item_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-22 23:15:19</sys_created_on>
+        <sys_id>234d78a147373a50a0d66d1f316d4364</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Standard Changes.Register or update vehicle for parking</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sc_cat_item_category_234d78a147373a50a0d66d1f316d4364</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-22 23:15:19</sys_updated_on>
+    </sc_cat_item_category>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</application>
+        <file_path/>
+        <instance_id>d974e4c62b7792183ce2fcd2ce91bf51</instance_id>
+        <instance_name>dev296889</instance_name>
+        <name>sc_cat_item_category_234d78a147373a50a0d66d1f316d4364</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_category"><sc_cat_item_category action="INSERT_OR_UPDATE"><sc_cat_item display_value="Register or update vehicle for parking">d0287ca547f33a50a0d66d1f316d438b</sc_cat_item><sc_category display_value="Standard Changes">b0fdfb01932002009ca87a75e57ffbe9</sc_category><sys_class_name>sc_cat_item_category</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-03-22 23:15:19</sys_created_on><sys_id>234d78a147373a50a0d66d1f316d4364</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Standard Changes.Register or update vehicle for parking</sys_name><sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package><sys_policy/><sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope><sys_update_name>sc_cat_item_category_234d78a147373a50a0d66d1f316d4364</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-03-22 23:15:19</sys_updated_on></sc_cat_item_category></record_update>]]></payload>
+        <payload_hash>637723438</payload_hash>
+        <record_name>Standard Changes.Register or update vehicle for parking</record_name>
+        <reverted_from/>
+        <source>eeff4e34473f7250a0d66d1f316d4313</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-22 23:15:19</sys_created_on>
+        <sys_id>6b4d78a147373a50a0d66d1f316d4377</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19d17d4de2b0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-22 23:15:19</sys_updated_on>
+        <type>Catalog Item Category</type>
+        <update_guid>274d78a1a1373a506adb304a37be1176</update_guid>
+        <update_guid_history>274d78a1a1373a506adb304a37be1176:637723438</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Standard Changes.Register or update vehicle for parking">b604052147773a50a0d66d1f316d4357</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-22 23:44:45</sys_created_on>
+        <sys_db_object display_value="" name="sc_cat_item_category">sc_cat_item_category</sys_db_object>
+        <sys_id>5d140f6513ed4d828c8c5b026530bde9</sys_id>
+        <sys_metadata>234d78a147373a50a0d66d1f316d4364</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Standard Changes.Register or update vehicle for parking</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_scope_delete display_value="">072538c0d9754ba68206ece29c4d3839</sys_scope_delete>
+        <sys_update_name>sc_cat_item_category_234d78a147373a50a0d66d1f316d4364</sys_update_name>
+        <sys_update_version display_value="sc_cat_item_category_234d78a147373a50a0d66d1f316d4364">6b4d78a147373a50a0d66d1f316d4377</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-22 23:44:45</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
