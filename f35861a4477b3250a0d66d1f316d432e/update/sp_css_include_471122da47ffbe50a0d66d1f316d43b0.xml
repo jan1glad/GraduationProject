@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <lazy_load>false</lazy_load>
+        <name>Font</name>
+        <rtl_css_file_url/>
+        <source>local</source>
+        <sp_css display_value="Coral style">3801ea06431b1210ca4c1f425db8f2b5</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-25 14:28:04</sys_created_on>
+        <sys_id>471122da47ffbe50a0d66d1f316d43b0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Font</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sp_css_include_471122da47ffbe50a0d66d1f316d43b0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-25 14:28:04</sys_updated_on>
+        <url/>
+    </sp_css_include>
+</record_update>

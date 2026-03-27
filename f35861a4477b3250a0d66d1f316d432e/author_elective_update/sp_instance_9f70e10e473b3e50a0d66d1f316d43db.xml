@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <advanced_placeholder_dimensions>false</advanced_placeholder_dimensions>
+        <async_load>false</async_load>
+        <async_load_device_type>desktop,tablet,mobile</async_load_device_type>
+        <async_load_trigger>viewport</async_load_trigger>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <placeholder_dimensions>{&#13;	"mobile": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"desktop": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"tablet": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	}&#13;}</placeholder_dimensions>
+        <placeholder_dimensions_script><![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]></placeholder_dimensions_script>
+        <placeholder_template>&lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&lt;div ng-if="options.maxRowCount === 10"&gt;&lt;/div&gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&gt;
+	&lt;div class="skeleton-container"&gt;
+	&lt;!-- Header Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-header"&gt;&lt;/div&gt;
+	&lt;!-- Body Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-line"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line small"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line medium"&gt;&lt;/div&gt;
+&lt;/div&gt;</placeholder_template>
+        <preserve_placeholder_size>false</preserve_placeholder_size>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">9eb39e9e477fbe50a0d66d1f316d4338</sp_column>
+        <sp_widget display_value="Hello User">5730658a473b3e50a0d66d1f316d43ce</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-24 15:06:00</sys_created_on>
+        <sys_id>9f70e10e473b3e50a0d66d1f316d43db</sys_id>
+        <sys_mod_count>35</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sp_instance_9f70e10e473b3e50a0d66d1f316d43db</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-27 13:10:16</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=9f70e10e473b3e50a0d66d1f316d43db"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</application>
+        <file_path/>
+        <instance_id>d974e4c62b7792183ce2fcd2ce91bf51</instance_id>
+        <instance_name>dev296889</instance_name>
+        <name>sp_instance_9f70e10e473b3e50a0d66d1f316d43db</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;order&gt;1&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;9eb39e9e477fbe50a0d66d1f316d4338&lt;/sp_column&gt;&lt;sp_widget display_value="Hello User"&gt;5730658a473b3e50a0d66d1f316d43ce&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-03-24 15:06:00&lt;/sys_created_on&gt;&lt;sys_id&gt;9f70e10e473b3e50a0d66d1f316d43db&lt;/sys_id&gt;&lt;sys_mod_count&gt;35&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e"&gt;f35861a4477b3250a0d66d1f316d432e&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Onboarding App"&gt;f35861a4477b3250a0d66d1f316d432e&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_9f70e10e473b3e50a0d66d1f316d43db&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-03-27 13:10:16&lt;/sys_updated_on&gt;&lt;title/&gt;&lt;url/&gt;&lt;widget_parameters/&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=9f70e10e473b3e50a0d66d1f316d43db"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1965652643</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>eeff4e34473f7250a0d66d1f316d4313</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-27 13:10:16</sys_created_on>
+        <sys_id>91c26cc347333690a0d66d1f316d4335</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19d2f6ab8e60000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-27 13:10:16</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>ddc26cc3ae33369011d4386328496133</update_guid>
+        <update_guid_history>ddc26cc3ae33369011d4386328496133:1965652643,cd7cd8c727fff290a943ce3a5357f7bc:-2093684952,147cd8c7bafff29011fee8d56f5f0b1e:2045408169,575cd4c793fff2909a7d3f2029180a24:-2093684952,f25c94c755fff2904627d969b76c1cbe:2045408169,0ae1a97a413bb2901ecec2ae3e180b80:-1937810777,bfd1297a713bb2907cdcc85a9f8dc3f3:-1781936602,2bd025f6e43bb2905d02a4b3d4700d06:-1937810777,7400e576633bb290bea9cf8d6dc9ddaa:-1781936602,44ff1576b63bb290f79e3c5f4f9ddd5b:-1254872061,90dfdd36903bb290bc7aa3c7ea408257:-1410746236,47cf5d369e3bb2904f9148ee884815bd:-1566620411,605f1df2463bb290fffbc8c5d5923112:-1722494586,353fd5f2fb3bb290a1ca52b507faecc9:-1878368761,bb2f95f2bb3bb290a1ef16c912c7a32f:-2034242936,022f15f21f3bb290543669991bb773f1:-1275566498,242fd1f25b3bb290ba8438f2a720bb54:-1431440673,cb1f51f2e23bb290f1a294c8d64c2176:-1587314848,3c1fddb21e3bb290a4fbd05af8d83fd7:-1743189023,9978d576bff7b290082563086e2108bd:-1899063198,6f07d1b212f7b29029c43346decb96f4:-1743189023,0b0791b2e4f7b290747569f6f3f2e3d5:-1587314848,4ea5417e9537b29068968f422bfb82d2:-1275566498,6da5417e4537b290209478544583cb36:-2034242936,5395cd3e7537b29025f3fcda10b0afa4:-1878368761,4f95cd3e2437b2906140b737dfe7b607:-1722494586,02954d3ece37b290f3cf356b96e14262:-1566620411,d1950d3ed137b290ddfe9c384deeb794:-1410746236,fb34c97a8b37b2903eb638cbc3dfbba3:-1254872061,7e34897a7d37b290223c11a3c977dbde:-1098997886,8834097a2d37b290d153b974e0db08d4:-943123711,3604dade287fbe50448ba645c46d075b:-787249536,29e356de747fbe503dae7c64d79d628a:-83498477,ace316decf7fbe5064adea3159928fc8:-1781936602,cc9221425a7b3e50338c172abe6961dc:-83498477,9f70e10e293b3e504717bad3fbf7d4de:-1719877171</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">b75e604f47733690a0d66d1f316d4368</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-27 14:00:58</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>7d688e22a9ac43578fe7e6bb795609b1</sys_id>
+        <sys_metadata>9f70e10e473b3e50a0d66d1f316d43db</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_scope_delete display_value="">072538c0d9754ba68206ece29c4d3839</sys_scope_delete>
+        <sys_update_name>sp_instance_9f70e10e473b3e50a0d66d1f316d43db</sys_update_name>
+        <sys_update_version display_value="sp_instance_9f70e10e473b3e50a0d66d1f316d43db">91c26cc347333690a0d66d1f316d4335</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-27 14:00:58</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

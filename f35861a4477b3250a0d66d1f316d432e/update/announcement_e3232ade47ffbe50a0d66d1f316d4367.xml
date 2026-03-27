@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url>https://community.servicenow.com/community?id=community_forum&amp;sys_id=dd4ba1e7db0e3810bb4a474d1396192c</details_url>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>true</display_first>
+        <display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style>
+        <from>2022-05-13 07:41:43</from>
+        <glyph>external-link</glyph>
+        <glyph_alt_text/>
+        <name>New CEO Announced</name>
+        <public>true</public>
+        <roles>sp_admin</roles>
+        <show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only>
+        <summary>New CEO Announced and we are very excited, please welcome Amelia Wollerich!</summary>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-25 14:35:52</sys_created_on>
+        <sys_id>e3232ade47ffbe50a0d66d1f316d4367</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>New CEO Announced</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>announcement_e3232ade47ffbe50a0d66d1f316d4367</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-25 14:37:51</sys_updated_on>
+        <title>New CEO Announced</title>
+        <to/>
+        <type>67eaf134e7a3320075c2a117c2f6a9d2</type>
+    </announcement>
+    <sys_translated_text action="delete_multiple" query="documentkey=e3232ade47ffbe50a0d66d1f316d4367"/>
+</record_update>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, $sce, $timeout, $window, snAnalytics) {
+    var c = this;
+    c.asyncUpdate = function() {
+        c.server.update();
+    };
+    var load_config = c.data.load_config;
+    if (load_config === "async")
+        setTimeout(c.asyncUpdate);
+    c.panelClass = c.data.renderedFromMenuItem ? "parent-container" : "panel-body";
+    c.panelWrapper = c.data.renderedFromMenuItem ? "" : "panel panel-default b panel-wrapper";
+    c.itemsMargin = c.data.renderedFromMenuItem ? "flex-container menu-item-margin flex-container-cols" : "flex-container flex-container-cols-modal";
+
+    $scope.handleClick = function(item, event) {
+        if (event && (event.keyCode === 13 || event.keyCode === 32)) {
+            event.preventDefault();
+        }
+        if (event.type === 'click' || (event.type === 'keydown' && (event.keyCode === 13 || event.keyCode === 32))) {
+            if (item.type == 'guided_help') {
+                c.server.get({
+                    "action": "openGuidedhelp",
+                    "guidedHelpId": item.guided_help
+                }).then(function(resp) {
+                    $timeout(function() {
+                        $window.open(resp.data.guidedHelpResponse.url, '_self');
+                        dismissModal();
+                    }, raiseAppseeEvent(resp.data.guidedHelpResponse));
+                });
+            } else if (item.url && item.url.length > 0) {
+                $window.open(item.url, '_self');
+                dismissModal();
+            }
+        }
+    };
+
+    $scope.trustAsHtml = function(string) {
+        return $sce.trustAsHtml(string);
+    };
+
+    function raiseAppseeEvent(data) {
+        if (!data.isNew) {
+            return;
+        }
+        var payload = {};
+        payload.name = "Guided Self-service Started";
+        payload.data = {};
+        payload.data["Guided Self-service"] = data.processName;
+        payload.data["User Id"] = data.userId;
+        payload.data["Source"] = data.source;
+        snAnalytics.addEvent(payload);
+    }
+
+    function dismissModal() {
+        if (c.data.renderedFromMenuItem) {
+            $scope.$parent.$parent.$dismiss();
+        }
+    }
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>$border-primary: #8790A1 !default;
+$border-secondary: #B3B7BC !default;
+$border-tertiary: #DADDE2 !default;
+$text-primary: #1D2223 !default;
+$border-radius-base: 4px !default;
+$sp-panel-box-shadow: 0 4px 8px 0 rgba(23, 40, 52, 0.08) !default;
+$headings-font-weight: 600 !default;
+$sp-space--xs: 8px !default;
+$sp-space--md: 12px !default;
+$sp-space--lg: 16px !default;
+$font-size-base: 16px !default;
+$sp-space--xl: 24px !default;
+
+
+.card-container {
+	min-height: 88px;
+	display: flex;
+	align-items: center;
+	max-height: 120px;
+  	height: 100%;
+}
+
+.parent-container {
+	max-height: 70vh;
+	overflow-y: scroll;
+}
+
+.content-container {
+	padding: $sp-space--lg;
+	align-items: center;
+	display: grid;
+  	height: 100%;
+}
+
+.icon-container {
+	margin-left: $sp-space--lg;
+	display: flex;
+	align-items: center;
+}
+
+img {
+	height: 56px;
+	width: 56px;
+}
+
+.parent-content-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.content-title {
+	color: $text-primary;
+	font-size: $font-size-base;
+	font-weight: $headings-font-weight;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.webkit-clamp-1 {
+	-webkit-line-clamp: 1;
+}
+
+.webkit-clamp-2 {
+	-webkit-line-clamp: 2;
+}
+
+.fa-folder-open {
+	font-size: 52px;
+	color: $text-tertiary;
+}
+
+.empty-content-title {
+	color: $text-primary;
+	font-size: $font-size-h4;
+	font-weight: $headings-font-weight;
+	margin-top: $sp-space--md;
+
+}
+
+.empty-content {
+	font-size: $font-size-base;
+	color: $text-secondary;
+	font-size: $font-size-base;
+	font-weight: 400;
+	margin-top: $sp-space--md;
+	width: 60%;
+}
+
+.empty-section {
+	margin-top: 26px;
+	margin-bottom: 26px;
+}
+
+.link-desc {
+	color: $text-primary;
+	font-size: $font-size-base;
+}
+
+.flex-container {
+	display: grid;
+	flex-wrap: wrap;
+	height: inherit;
+	width: inherit;
+	row-gap: $sp-space--lg;
+	column-gap: $sp-space--lg;
+	justify-content: space-between;
+	
+}
+
+.flex-container-cols {
+  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+}
+
+
+.flex-container-cols-modal {
+  grid-template-columns: repeat(auto-fit, minmax(23.8rem, 1fr));
+}
+
+.menu-item-margin {
+	margin: 16px;
+}
+
+.col {
+	border: 1px solid $border-tertiary;
+	border-radius: $border-radius-base;
+	flex-direction: column;
+}
+
+.content {
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	margin-top: $sp-space--xs;
+  	height: 100%;
+  	display: block;
+}
+
+.panel-body {
+	padding: 24px;
+}
+
+a.card-container{
+  border-radius: $border-radius-base;
+}
+.col:hover {
+	box-shadow: $sp-panel-box-shadow;
+}
+
+@media (max-width: 750px) {
+	.col {
+		flex-basis: 100%;
+	}
+}
+.link-desc {
+  display: -webkit-box;
+}
+@media (max-width: 430px) {
+  .flex-container-cols-modal {
+    grid-template-columns: 1fr;
+  }
+  .flex-container-cols {
+    grid-template-columns: 1fr;
+  }
+}
+.skeleton-loader {
+  background: rgb(239, 241, 246) no-repeat;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  border-radius: 4px;
+  animation: progress 2s ease-in-out infinite;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>get_support_for_employee</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+    $(document).ready(function() {
+        var staticContent = document.getElementsByClassName('static');
+
+        for (var i = 0; i < staticContent.length; i++) {
+            var staticContentRect = staticContent[i].getBoundingClientRect();
+            var contentLeft = staticContentRect.left;
+            var contentRight = staticContentRect.right;
+            var contentTop = staticContentRect.top;
+            var contentBottom = staticContentRect.bottom;
+            var aTag = staticContent[i].getElementsByTagName("a");
+            for (var j = 0; j < aTag.length; j++) {
+
+                var aRect = aTag[j].getBoundingClientRect();
+                var aLeft = aRect.left;
+                var aRight = aRect.right;
+                var aTop = aRect.top;
+                var aBottom = aRect.bottom;
+                if (!(aLeft >= contentLeft && aRight <= contentRight && aTop >= contentTop && aBottom <= contentBottom))
+                    aTag[j].tabIndex = -1;
+
+            }
+
+
+        }
+    });
+}]]></link>
+        <name>Get Support For Employee</name>
+        <option_schema>[{"name":"title","hint":"Title name of the widget","label":"Title","type":"string","default_value":"Get support"},{"name":"load_config","section":"other","default_value":"async","label":"Load configuration","type":"choice","choices":[{"label":"Synchronous","value":"sync"},{"label":"Asynchronous","value":"async"}]},{"hint":"Shows empty state if the widget content is empty.","name":"show_empty_state","section":"other","default_value":"false","label":"Show empty state","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.loading = true;
+    data.renderedFromMenuItem = input && input.renderedFromMenuItem ? true : false;
+    data.load_config = data.renderedFromMenuItem === true ? "sync" : (options && options.load_config ? options.load_config : "");
+    data.show_title = data.renderedFromMenuItem === true ? false : true;
+    if (data.load_config === "async" && !input)
+        return;
+    data.getSupportItems = [];
+    var empty_state = options && (options.show_empty_state === "true" || options.show_empty_state === true);
+    data.portal = $sp.getPortalRecord();
+    var getSupportUtil = new sn_ex_sp.GetSupportUtil(data.portal.getUniqueValue());
+    data.getSupportItems = getSupportUtil.fetchSupportRecords();
+    data.showEmptyState = showEmptyState();
+    data.loading = false;
+
+    if (input && input.action == 'openGuidedhelp' && input.guidedHelpId) {
+        data.pageId = $sp.getParameter('id') ? $sp.getParameter('id') : data.portal.homepage.getDisplayValue();
+        data.guidedHelpResponse = new sn_ex_sp.QuickLinkUtil().handleGuidedHelpClick(input.guidedHelpId, data.pageId, "quick_link_from_getsupport");
+    }
+
+    function showEmptyState() {
+        if (data.getSupportItems.length === 0 && (data.renderedFromMenuItem || empty_state))
+            return true;
+        return false;
+    }
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-25 15:40:53</sys_created_on>
+        <sys_id>0812f29e4773fe50a0d66d1f316d4332</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Get Support For Employee</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sp_widget_0812f29e4773fe50a0d66d1f316d4332</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-26 23:22:33</sys_updated_on>
+        <template><![CDATA[<div ng-class = "c.panelWrapper" ng-if="data.loading || data.showEmptyState || data.getSupportItems.length>0">
+  <div class = "panel-heading b-b" ng-if="data.show_title">
+    <h3 class="panel-title">GET SUPPORT</h3>
+  </div>
+  <div ng-class="c.panelClass">
+    <div ng-if="data.loading"  class="flex-container flex-container-cols-modal">
+      <div class="card-container skeleton-loader" ng-repeat="item in [1, 2, 3]"></div>
+    </div>
+    <div ng-if="!data.loading && data.showEmptyState" class="empty-section" align="center">
+      <div>
+        <i class="fa fa-folder-open"></i>
+      </div>
+      <div class="empty-content-title">
+        ${No support content to display}
+      </div>
+      <div class="empty-content">
+        ${This may be because you don't have access, or there is no support content available for you}
+      </div>
+    </div>
+    <div ng-if="!data.loading && data.getSupportItems && data.getSupportItems.length > 0" ng-class="c.itemsMargin">
+      <div ng-repeat="item in data.getSupportItems | orderBy : 'order' track by $index" class="col">
+        <div ng-if="!item.url && item.type != 'guided_help'" class="card-container" aria-label="{{data.getSupportHeader}} {{item.title}}">
+          <div class="content-container">
+            <div class="content-title webkit-clamp-1" ng-if="item.title">
+              <span class="card-title text-ellipsis">{{item.title}}
+              </span>
+            </div>
+            <div class="content static" ng-bind-html="trustAsHtml(item.content)">
+            </div>
+          </div>
+        </div>
+        <a class="card-container" ng-if="item.type == 'guided_help' || (item.url && item.url.length > 0)" ng-style="item.type == 'guided_help' && {'cursor': 'pointer'}" 
+           aria-label="{{data.getSupportHeader}} {{item.title}}" title = "{{item.title}}" 
+           ng-href="{{item.url}}" ng-attr-target="{{item.target}}" ng-click="handleClick(item, $event)" tabindex="0" ng-keydown="handleClick(item, $event)">
+          <div class="parent-content-container">
+            <div class="icon-container" ng-if="item.icon">
+              <img ng-src={{item.icon}}>
+            </div>
+            <div class="content-container">
+              <div class="content-title webkit-clamp-2" ng-if="item.title">
+                <span class="card-title text-ellipsis">{{item.title}}
+                </span>
+              </div>
+              <div class="content link-desc" ng-if="item.content">
+                {{item.content}}
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

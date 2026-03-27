@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_category">
+    <sc_cat_item_category action="INSERT_OR_UPDATE">
+        <sc_cat_item display_value="Change Password">3c72dc91eb00210045e1a5115206fec7</sc_cat_item>
+        <sc_category display_value="Quick Links">91a9e0510a0a3c7401d20d86782fc9a0</sc_category>
+        <sys_class_name>sc_cat_item_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-26 18:57:19</sys_created_on>
+        <sys_id>5f982cba47bf7290a0d66d1f316d431a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Quick Links.Change Password</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sc_cat_item_category_5f982cba47bf7290a0d66d1f316d431a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-26 18:57:19</sys_updated_on>
+    </sc_cat_item_category>
+</record_update>

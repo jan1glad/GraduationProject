@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="Get Support For Employee">0812f29e4773fe50a0d66d1f316d4332</child>
+        <cloned>2026-03-25 15:40:53</cloned>
+        <last_validated>2026-03-25 15:40:53</last_validated>
+        <parent display_value="Get Support">79e98d67434831107d2f52cba5b8f2cc</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($scope, $sce, $timeout, $window, snAnalytics) {
+    var c = this;
+    c.asyncUpdate = function() {
+        c.server.update();
+    };
+    var load_config = c.data.load_config;
+    if (load_config === "async")
+        setTimeout(c.asyncUpdate);
+    c.panelClass = c.data.renderedFromMenuItem ? "parent-container" : "panel-body";
+    c.panelWrapper = c.data.renderedFromMenuItem ? "" : "panel panel-default b panel-wrapper";
+    c.itemsMargin = c.data.renderedFromMenuItem ? "flex-container menu-item-margin flex-container-cols" : "flex-container flex-container-cols-modal";
+
+    $scope.handleClick = function(item, event) {
+        if (event &amp;&amp; (event.keyCode === 13 || event.keyCode === 32)) {
+            event.preventDefault();
+        }
+        if (event.type === 'click' || (event.type === 'keydown' &amp;&amp; (event.keyCode === 13 || event.keyCode === 32))) {
+            if (item.type == 'guided_help') {
+                c.server.get({
+                    "action": "openGuidedhelp",
+                    "guidedHelpId": item.guided_help
+                }).then(function(resp) {
+                    $timeout(function() {
+                        $window.open(resp.data.guidedHelpResponse.url, '_self');
+                        dismissModal();
+                    }, raiseAppseeEvent(resp.data.guidedHelpResponse));
+                });
+            } else if (item.url &amp;&amp; item.url.length &gt; 0) {
+                $window.open(item.url, '_self');
+                dismissModal();
+            }
+        }
+    };
+
+    $scope.trustAsHtml = function(string) {
+        return $sce.trustAsHtml(string);
+    };
+
+    function raiseAppseeEvent(data) {
+        if (!data.isNew) {
+            return;
+        }
+        var payload = {};
+        payload.name = "Guided Self-service Started";
+        payload.data = {};
+        payload.data["Guided Self-service"] = data.processName;
+        payload.data["User Id"] = data.userId;
+        payload.data["Source"] = data.source;
+        snAnalytics.addEvent(payload);
+    }
+
+    function dismissModal() {
+        if (c.data.renderedFromMenuItem) {
+            $scope.$parent.$parent.$dismiss();
+        }
+    }
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;$border-primary: #8790A1 !default;
+$border-secondary: #B3B7BC !default;
+$border-tertiary: #DADDE2 !default;
+$text-primary: #1D2223 !default;
+$border-radius-base: 4px !default;
+$sp-panel-box-shadow: 0 4px 8px 0 rgba(23, 40, 52, 0.08) !default;
+$headings-font-weight: 600 !default;
+$sp-space--xs: 8px !default;
+$sp-space--md: 12px !default;
+$sp-space--lg: 16px !default;
+$font-size-base: 16px !default;
+$sp-space--xl: 24px !default;
+
+
+.card-container {
+	min-height: 88px;
+	display: flex;
+	align-items: center;
+	max-height: 120px;
+  	height: 100%;
+}
+
+.parent-container {
+	max-height: 70vh;
+	overflow-y: scroll;
+}
+
+.content-container {
+	padding: $sp-space--lg;
+	align-items: center;
+	display: grid;
+  	height: 100%;
+}
+
+.icon-container {
+	margin-left: $sp-space--lg;
+	display: flex;
+	align-items: center;
+}
+
+img {
+	height: 56px;
+	width: 56px;
+}
+
+.parent-content-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.content-title {
+	color: $text-primary;
+	font-size: $font-size-base;
+	font-weight: $headings-font-weight;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.webkit-clamp-1 {
+	-webkit-line-clamp: 1;
+}
+
+.webkit-clamp-2 {
+	-webkit-line-clamp: 2;
+}
+
+.fa-folder-open {
+	font-size: 52px;
+	color: $text-tertiary;
+}
+
+.empty-content-title {
+	color: $text-primary;
+	font-size: $font-size-h4;
+	font-weight: $headings-font-weight;
+	margin-top: $sp-space--md;
+
+}
+
+.empty-content {
+	font-size: $font-size-base;
+	color: $text-secondary;
+	font-size: $font-size-base;
+	font-weight: 400;
+	margin-top: $sp-space--md;
+	width: 60%;
+}
+
+.empty-section {
+	margin-top: 26px;
+	margin-bottom: 26px;
+}
+
+.link-desc {
+	color: $text-primary;
+	font-size: $font-size-base;
+}
+
+.flex-container {
+	display: grid;
+	flex-wrap: wrap;
+	height: inherit;
+	width: inherit;
+	row-gap: $sp-space--lg;
+	column-gap: $sp-space--lg;
+	justify-content: space-between;
+	
+}
+
+.flex-container-cols {
+  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+}
+
+
+.flex-container-cols-modal {
+  grid-template-columns: repeat(auto-fit, minmax(23.8rem, 1fr));
+}
+
+.menu-item-margin {
+	margin: 16px;
+}
+
+.col {
+	border: 1px solid $border-tertiary;
+	border-radius: $border-radius-base;
+	flex-direction: column;
+}
+
+.content {
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	margin-top: $sp-space--xs;
+  	height: 100%;
+  	display: block;
+}
+
+.panel-body {
+	padding: 24px;
+}
+
+a.card-container{
+  border-radius: $border-radius-base;
+}
+.col:hover {
+	box-shadow: $sp-panel-box-shadow;
+}
+
+@media (max-width: 750px) {
+	.col {
+		flex-basis: 100%;
+	}
+}
+.link-desc {
+  display: -webkit-box;
+}
+@media (max-width: 430px) {
+  .flex-container-cols-modal {
+    grid-template-columns: 1fr;
+  }
+  .flex-container-cols {
+    grid-template-columns: 1fr;
+  }
+}
+.skeleton-loader {
+  background: rgb(239, 241, 246) no-repeat;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  border-radius: 4px;
+  animation: progress 2s ease-in-out infinite;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;ec-get-support&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+    $(document).ready(function() {
+        var staticContent = document.getElementsByClassName('static');
+
+        for (var i = 0; i &lt; staticContent.length; i++) {
+            var staticContentRect = staticContent[i].getBoundingClientRect();
+            var contentLeft = staticContentRect.left;
+            var contentRight = staticContentRect.right;
+            var contentTop = staticContentRect.top;
+            var contentBottom = staticContentRect.bottom;
+            var aTag = staticContent[i].getElementsByTagName("a");
+            for (var j = 0; j &lt; aTag.length; j++) {
+
+                var aRect = aTag[j].getBoundingClientRect();
+                var aLeft = aRect.left;
+                var aRight = aRect.right;
+                var aTop = aRect.top;
+                var aBottom = aRect.bottom;
+                if (!(aLeft &gt;= contentLeft &amp;&amp; aRight &lt;= contentRight &amp;&amp; aTop &gt;= contentTop &amp;&amp; aBottom &lt;= contentBottom))
+                    aTag[j].tabIndex = -1;
+
+            }
+
+
+        }
+    });
+}]]&gt;&lt;/link&gt;&lt;name&gt;Get Support&lt;/name&gt;&lt;option_schema&gt;[{"name":"title","hint":"Title name of the widget","label":"Title","type":"string","default_value":"Get support"},{"name":"load_config","section":"other","default_value":"async","label":"Load configuration","type":"choice","choices":[{"label":"Synchronous","value":"sync"},{"label":"Asynchronous","value":"async"}]},{"hint":"Shows empty state if the widget content is empty.","name":"show_empty_state","section":"other","default_value":"false","label":"Show empty state","type":"boolean"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    data.loading = true;
+    data.renderedFromMenuItem = input &amp;&amp; input.renderedFromMenuItem ? true : false;
+    data.load_config = data.renderedFromMenuItem === true ? "sync" : (options &amp;&amp; options.load_config ? options.load_config : "");
+    data.show_title = data.renderedFromMenuItem === true ? false : true;
+    data.getSupportHeader = options &amp;&amp; options.title ? gs.getMessage(options.title) : gs.getMessage("Get support");
+    if (data.load_config === "async" &amp;&amp; !input)
+        return;
+    data.getSupportItems = [];
+    var empty_state = options &amp;&amp; (options.show_empty_state === "true" || options.show_empty_state === true);
+    data.portal = $sp.getPortalRecord();
+    var getSupportUtil = new sn_ex_sp.GetSupportUtil(data.portal.getUniqueValue());
+    data.getSupportItems = getSupportUtil.fetchSupportRecords();
+    data.showEmptyState = showEmptyState();
+    data.loading = false;
+
+    if (input &amp;&amp; input.action == 'openGuidedhelp' &amp;&amp; input.guidedHelpId) {
+        data.pageId = $sp.getParameter('id') ? $sp.getParameter('id') : data.portal.homepage.getDisplayValue();
+        data.guidedHelpResponse = new sn_ex_sp.QuickLinkUtil().handleGuidedHelpClick(input.guidedHelpId, data.pageId, "quick_link_from_getsupport");
+    }
+
+    function showEmptyState() {
+        if (data.getSupportItems.length === 0 &amp;&amp; (data.renderedFromMenuItem || empty_state))
+            return true;
+        return false;
+    }
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-07-21 10:38:30&lt;/sys_created_on&gt;&lt;sys_id&gt;79e98d67434831107d2f52cba5b8f2cc&lt;/sys_id&gt;&lt;sys_mod_count&gt;631&lt;/sys_mod_count&gt;&lt;sys_name&gt;Get Support&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_79e98d67434831107d2f52cba5b8f2cc&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-10-14 17:15:28&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-class = "c.panelWrapper" ng-if="data.loading || data.showEmptyState || data.getSupportItems.length&gt;0"&gt;
+  &lt;div class = "panel-heading b-b" ng-if="data.show_title"&gt;
+    &lt;h3 class="panel-title"&gt;{{data.getSupportHeader}}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div ng-class="c.panelClass"&gt;
+    &lt;div ng-if="data.loading"  class="flex-container flex-container-cols-modal"&gt;
+      &lt;div class="card-container skeleton-loader" ng-repeat="item in [1, 2, 3]"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div ng-if="!data.loading &amp;&amp; data.showEmptyState" class="empty-section" align="center"&gt;
+      &lt;div&gt;
+        &lt;i class="fa fa-folder-open"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div class="empty-content-title"&gt;
+        ${No support content to display}
+      &lt;/div&gt;
+      &lt;div class="empty-content"&gt;
+        ${This may be because you don't have access, or there is no support content available for you}
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div ng-if="!data.loading &amp;&amp; data.getSupportItems &amp;&amp; data.getSupportItems.length &gt; 0" ng-class="c.itemsMargin"&gt;
+      &lt;div ng-repeat="item in data.getSupportItems | orderBy : 'order' track by $index" class="col"&gt;
+        &lt;div ng-if="!item.url &amp;&amp; item.type != 'guided_help'" class="card-container" aria-label="{{data.getSupportHeader}} {{item.title}}"&gt;
+          &lt;div class="content-container"&gt;
+            &lt;div class="content-title webkit-clamp-1" ng-if="item.title"&gt;
+              &lt;span class="card-title text-ellipsis"&gt;{{item.title}}
+              &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class="content static" ng-bind-html="trustAsHtml(item.content)"&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;a class="card-container" ng-if="item.type == 'guided_help' || (item.url &amp;&amp; item.url.length &gt; 0)" ng-style="item.type == 'guided_help' &amp;&amp; {'cursor': 'pointer'}" 
+           aria-label="{{data.getSupportHeader}} {{item.title}}" title = "{{item.title}}" 
+           ng-href="{{item.url}}" ng-attr-target="{{item.target}}" ng-click="handleClick(item, $event)" tabindex="0" ng-keydown="handleClick(item, $event)"&gt;
+          &lt;div class="parent-content-container"&gt;
+            &lt;div class="icon-container" ng-if="item.icon"&gt;
+              &lt;img ng-src={{item.icon}}&gt;
+            &lt;/div&gt;
+            &lt;div class="content-container"&gt;
+              &lt;div class="content-title webkit-clamp-2" ng-if="item.title"&gt;
+                &lt;span class="card-title text-ellipsis"&gt;{{item.title}}
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class="content link-desc" ng-if="item.content"&gt;
+                {{item.content}}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-25 15:40:53</sys_created_on>
+        <sys_id>4412f69e4773fe50a0d66d1f316d43ef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>0812f29e4773fe50a0d66d1f316d4332</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_4412f69e4773fe50a0d66d1f316d43ef</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-25 15:40:53</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

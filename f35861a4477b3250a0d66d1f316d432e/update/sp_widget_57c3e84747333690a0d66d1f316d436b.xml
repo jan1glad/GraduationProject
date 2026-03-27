@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $window, $timeout, $interval) {
+    /* widget controller */
+    var c = this;
+    var stop;
+    var defaultFontSize = '16px';
+    var focusableElementPresent = false;
+    //list of all possible focusable elements inside card in reverse tab order.
+    var focusableElmtSelectors = ['.favorite-button'];
+
+    c.sectionWidth = 252;
+    c.trackCount = 0;
+    c.rightVisible = false;
+    c.leftVisible = false;
+    c.tracker = 0;
+
+    c.getDashboardParentNode = function() {
+        return $('.instance-' + c.data.instanceId);
+    }
+
+    c.getContentsSectionNode = function() {
+        return $('.' + c.data.instanceId + '-contents-section');
+    }
+
+    c.getSwipeNode = function(pos) {
+        return $('.' + c.data.instanceId + '-' + pos + '-swipe');
+    }
+
+    c.getScrollLength = function() {
+        return parseInt((c.sectionProportion() * $('.' + c.data.instanceId + '-body-content').innerWidth()));
+    }
+
+    c.getSectionWidth = function() {
+        return c.getDashboardParentNode().outerWidth();
+    }
+
+    c.sectionProportion = function() {
+        var value = parseInt(Math.floor(c.getSectionWidth() / c.sectionWidth));
+        return value ? value : 1;
+    }
+
+    c.getRightSwipeMargin = function() {
+        return (parseInt(c.getSectionWidth() - 25)) + 'px';
+    }
+
+    c.moveLeft = function() {
+        var scrollVal = c.getScrollLength();
+        var leftPos = c.getContentsSectionNode().scrollLeft();
+        c.getContentsSectionNode().animate({
+            scrollLeft: leftPos - scrollVal
+        }, 100);
+
+        c.swipeLeft();
+    }
+
+    c.moveRight = function() {
+        var scrollVal = c.getScrollLength();
+        var leftPos = c.getContentsSectionNode().scrollLeft();
+        c.getContentsSectionNode().animate({
+            scrollLeft: leftPos + scrollVal
+        }, 100);
+
+        c.swipeRight();
+
+    }
+
+    c.swipeInitialize = function() {
+        c.trackCount = 0;
+        c.rightVisible = false;
+        c.leftVisible = false;
+        var currentWidth = c.getSectionWidth();
+
+        if (c.trackCount == 0 && c.rightVisible == false) {
+            var totalCards = c.data.widgetsData.length;
+            if (totalCards > c.sectionProportion()) {
+                c.rightVisible = true;
+            }
+        }
+
+        if (c.getSwipeNode('right').length > 0) {
+            document.querySelector('#' + c.data.instanceId + '-right-swipe').style.marginLeft = (parseInt(currentWidth) - 20) + 'px';
+        }
+
+    }
+
+    c.swipeRight = function() {
+        var totalCards = c.data.widgetsData.length;
+        var trace = c.trackCount + c.sectionProportion();
+        if ((totalCards - trace) >= c.sectionProportion()) {
+            c.trackCount = trace;
+        } else {
+            c.trackCount = totalCards - 1;
+        }
+    }
+
+    c.showRightArrow = function() {
+        var totalCards = c.data.widgetsData.length;
+        var cardsDisplayed = c.sectionProportion();
+        var p = c.getSectionWidth();
+
+        if (cardsDisplayed >= totalCards) return false;
+
+        else if (c.trackCount == 0) return true;
+
+        else if ((cardsDisplayed == 1) && (c.trackCount >= (totalCards - cardsDisplayed))) return false;
+
+        else if ((cardsDisplayed > 1) && c.trackCount >= (totalCards - cardsDisplayed)) return false;
+
+        else if (cardsDisplayed == totalCards) return false;
+
+        else return true;
+    }
+
+    c.showLeftArrow = function() {
+        var totalCards = c.data.widgetsData.length;
+        var cardsDisplayed = c.sectionProportion();
+
+        if (c.trackCount == 0) return false;
+
+        else if (cardsDisplayed == totalCards) return false;
+
+        else if (c.trackCount >= (c.data.widgetsData.length - 1)) return true;
+
+        else return true;
+
+    }
+
+    c.swipeLeft = function() {
+        var totalCards = c.data.widgetsData.length;
+        var trace = c.trackCount - c.sectionProportion();
+
+        if (trace >= c.sectionProportion())
+            c.trackCount -= c.sectionProportion();
+        else {
+            c.trackCount = 0;
+        }
+    }
+
+    c.focusableElmtInsideCard = function() {
+        var widgetSection = document.querySelector('.contents-section');
+        for (var i = 0; i <= focusableElmtSelectors.length - 1; i++) {
+            if (widgetSection && widgetSection.querySelector(focusableElmtSelectors[i])) {
+                focusableElementPresent = true;
+                break;
+            }
+        }
+    }
+
+    var appWindow = angular.element($window);
+    appWindow.bind('resize', resetSwipe);
+
+
+    function resetSwipe() {
+        $scope.$apply();
+    }
+
+    function loadData() {
+        c.data.action = "loadData";
+		// widget options passed from client script to server script
+		c.data.widgetOptions = $scope.options;
+        c.server.update().then(function() {
+            fetchRFYData();
+        });
+    }
+
+    c.navigate = function(object) {
+        var url = "?id=kb_article&sys_id=" + object.sys_id
+
+        if (object.itemType == 'Request')
+            url = object.href;
+
+        $window.open(url, '_self');
+    }
+
+    c.createPolling = function() {
+        stop = $interval(function() {
+            var currentFontSize = $("#body-content").css('font-size');
+            if (defaultFontSize !== currentFontSize) {
+                defaultFontSize = currentFontSize;
+                c.sectionWidth = $('.' + c.data.instanceId + '-body-content').innerWidth();
+                c.showRightArrow();
+            }
+        }, 1000);
+    };
+
+    c.setFocus = function(focusableElement) {
+        setTimeout(function() {
+            focusableElement.focus({
+                preventScroll: true
+            });
+        }, 0);
+    }
+
+    $scope.$on('$destroy', function() {
+        // Make sure that the interval is destroyed too
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+        }
+    });
+
+    c.setEventListeners = function() {
+        if (c.options.card_behaviour === 'single' && c.data.listType === 'card-list') {
+            var containerSelector = 'div.instance-' + c.data.instanceId;
+            var cardSelector = '.flex-item-card';
+            var contentCardSelector = ".content-card";
+            var container = document.querySelector(containerSelector);
+            if (container) {
+                //convert to an array so that we can use array functions.
+                c.cardElements = Array.from(container.querySelectorAll(cardSelector));
+                c.cardElements.forEach(function(node, index) {
+                    node.addEventListener('keydown', function(e) {
+                        if (e && e.currentTarget && e.currentTarget.offsetParent) {
+                            var currentIndex = c.cardElements.indexOf(e.currentTarget.closest(".flex-item-card"));
+                            if (currentIndex === 0) {
+                                c.trackCount = 0;
+                            }
+                            var containerRect = e.currentTarget.offsetParent.getBoundingClientRect();
+                            var focusableElement;
+
+                            // check if tab is clicked with out shift and the tabbed element is not last element
+                            if (e.which == 9 && !e.shiftKey && currentIndex < c.cardElements.length - 1) {
+                                //check if any of the cards have focusable elements inside them.
+                                if (!focusableElementPresent) {
+                                    focusableElement = c.cardElements[currentIndex + 1];
+                                    //get coordinates of the container and card element to determine if we have to move them.
+                                    var focusedRect = focusableElement.getBoundingClientRect();
+                                    var parentPositionFromLeft = containerRect.left + containerRect.width;
+                                    var currentPositionFromLeft = focusedRect.left + focusedRect.width;
+                                    if (parentPositionFromLeft < currentPositionFromLeft) {
+                                        c.moveRight();
+                                    }
+                                } else {
+                                    var lastFocusableElement;
+                                    for (var i = 0; i <= focusableElmtSelectors.length - 1; i++) {
+                                        lastFocusableElement = e.currentTarget.querySelector(focusableElmtSelectors[i]);
+                                        if (lastFocusableElement) {
+                                            break;
+                                        }
+                                    }
+                                    if (!lastFocusableElement || e.target == lastFocusableElement) {
+                                        focusableElement = c.cardElements[currentIndex + 1];
+                                        //get coordinates of the container and card element to determine if we have to move them.
+                                        var focusedRect = focusableElement.getBoundingClientRect();
+                                        var parentPositionFromLeft = containerRect.left + containerRect.width;
+                                        var currentPositionFromLeft = focusedRect.left + focusedRect.width;
+                                        if (parentPositionFromLeft < currentPositionFromLeft) {
+                                            c.moveRight();
+                                        }
+                                    }
+                                }
+                            }
+
+                            // check if tab is clicked with shift and the tabbed element is not first element
+                            else if (e.which === 9 && e.shiftKey && currentIndex > 0) {
+                                //check if any of the cards have focusable elements inside them.
+                                if (!focusableElementPresent) {
+                                    focusableElement = c.cardElements[currentIndex - 1];
+                                    var newFocuredRect = focusableElement.getBoundingClientRect();
+                                    if (newFocuredRect.left < containerRect.left) {
+                                        c.moveLeft();
+                                    }
+                                } else {
+                                    //check if event is triggered by card itself.
+                                    if ($(e.target).hasClass("content-card")) {
+                                        var leftCardLastFocusableElement;
+                                        var leftCard = c.cardElements[currentIndex - 1];
+                                        for (var k = 0; k <= focusableElmtSelectors.length - 1; k++) {
+                                            leftCardLastFocusableElement = leftCard.querySelector(focusableElmtSelectors[k]);
+                                            if (leftCardLastFocusableElement) {
+                                                break;
+                                            }
+                                        }
+                                        //Check if left card does not have focusable element
+                                        if (!leftCardLastFocusableElement) {
+                                            focusableElement = c.cardElements[currentIndex - 1];
+                                            var newFocuredRect = focusableElement.getBoundingClientRect();
+                                            if (newFocuredRect.left < containerRect.left) {
+                                                c.moveLeft();
+                                            }
+                                        } else {
+                                            focusableElement = c.cardElements[currentIndex - 1];
+                                            var newFocuredRect = focusableElement.getBoundingClientRect();
+                                            if (newFocuredRect.left < containerRect.left) {
+                                                c.moveLeft();
+                                            }
+                                        }
+                                    } else {
+                                        var firstFocusableElement;
+                                        for (var j = focusableElmtSelectors.length - 1; j >= 0; j--) {
+                                            firstFocusableElement = e.currentTarget.querySelector(focusableElmtSelectors[j]);
+                                            if (firstFocusableElement) {
+                                                break;
+                                            }
+                                        }
+                                        //check if event is triggered by first focusable element inside card.
+                                        if (firstFocusableElement && firstFocusableElement == e.target) {
+                                            focusableElement = c.cardElements[currentIndex];
+                                        }
+                                    }
+                                }
+                            }
+                            $scope.$apply();
+                        }
+                    });
+                })
+            }
+
+        }
+
+    }
+
+    var fetchRFYData = function() {
+        $timeout(function() {
+            $scope.isLoading = false;
+            c.focusableElmtInsideCard();
+            c.setEventListeners();
+            c.createPolling();
+        }, 50);
+    };
+
+    var load_config = c.data.load_config;
+    if (load_config === "async" && !c.data.asyncLoad)
+        $scope.$applyAsync(loadData);
+    else
+        fetchRFYData();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>
+
+$border-tertiary: #859095 !default;
+
+.flex-item-card {
+  display: block;
+  position: relative;
+}
+
+.rfy-empty-state {
+	text-align: center;
+	height: 15rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2.4rem;
+	p{
+		font-size: $font-size-base;
+		color: $text-secondary;
+	}
+}
+
+.recommendations-dashboard-section {
+  position: relative;
+  background: $background-primary;
+  box-shadow: 0 0 1rem #e5e5e5;
+  flex-direction: column;
+  display: flex;
+  box-sizing: border-box;
+  border-radius: $border-radius-large;
+  margin-bottom: $sp-space--lg;
+  
+  .panel-heading {
+    padding: $sp-space--xl !important;
+  }
+  
+  .panel-body {
+    padding: 0;
+  }
+}
+
+.h1.panel-title:focus {
+  outline: 5px auto $input-border-focus;
+}
+
+.min-view {
+  max-width: 850px;
+}
+
+.max-view {
+  max-width: 1170px;
+}
+
+.line {
+  width: 100%;
+  border: 1px solid $panel-default-border;
+}
+
+.recommended-card-section {
+  height: 283px;
+}
+
+.card-border {
+  border-radius: $border-radius-base;
+  border: 1px solid $border-tertiary;
+}
+
+.card-border:hover {
+  box-shadow: 0rem 0.2rem 1rem #E5E5E5;
+}
+
+.swipe-button {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $background-primary;
+  border: 1px solid $brand-primary;
+  color: $brand-primary;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 160px;
+  margin-left: -10px;
+}
+
+.swipe-button:hover {
+  color: $brand-primary-darker;
+  border-color: $brand-primary-darker;
+}
+
+.recommendations-dashboard-section .swipe-button:focus {
+  color: $brand-primary-darkest;
+  border: 1px solid $brand-primary-darkest;
+  box-shadow: none;
+}
+
+#icon {
+  cursor: pointer;
+  width: 8.62px;
+  padding-right: 15px;
+  font-weight: bold;
+}
+
+.contents-section {
+  padding: 10px $sp-space--lg;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+
+}
+
+.content-section-single-cards {
+  display: flex;
+  flex-direction: column;
+  flex-flow: row nowrap;
+  scroll-behaviour: smooth;
+}
+
+@-moz-document url-prefix() {
+  #card-list-contents-section {
+    margin-bottom: 20px;
+    padding: 8px;
+  }
+}
+
+.card-body-content {
+  width: 258px;
+}
+
+#card-list-contents-section {
+  overflow: hidden;
+}
+
+#card-list-widget-body {
+  width: 236px;
+}
+.wrap {
+  #card-list-widget-body {
+    width: auto;
+    max-width: 500px;
+  }
+}
+
+// Apply padding only when screen size &gt; 320px (400% zoom level in WCAG resolution) to avoid loss of content
+@media screen and (min-width: 321px) {
+  #body-content {
+    padding: 10px 8px;
+  }
+}
+
+.content-card {
+  height: 170px !important;
+}
+
+.content-card:focus {
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 368px) {
+  #card-list-widget-body {
+    width: 25rem;
+    margin: 0 0.2rem;
+  }
+}
+/* IE specific Class to override */
+@media screen and (-ms-high-contrast: active),
+  (-ms-high-contrast: none) {
+    .recommended-card-section{
+      .card-text-container{
+        min-width: 1px;
+        .text-ellipsis{
+          max-width: 100%;
+        }
+      }
+    }
+    #simple-link-contents-section {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      .simple-link {
+        width: 350px;
+        max-width: 350px;
+      }
+    }
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>relevant_for_you_name</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Relevant for you name</name>
+        <option_schema>[{"name":"user_prediction_count","section":"other","default_value":"25","label":"Number of similar users used for prediction","type":"integer"},{"name":"recent_activity_cut_off_in_days","section":"other","default_value":"30","label":"Recent activity cut off in days","type":"integer"},{"name":"title","section":"other","default_value":"Recommended for you","label":"Title","type":"string"},{"hint":"Max value expected here is 10","name":"limit","section":"other","default_value":"3","label":"Limit","type":"integer"},{"name":"category","section":"other","default_value":"knowledge and catalog","label":"Category","type":"choice","choices":[{"label":"Knowledge","value":"knowledge"},{"label":"Catalog","value":"catalog"},{"label":"Knowledge and catalog","value":"knowledge and catalog"}]},{"name":"list_type","section":"other","default_value":"Simple List","label":"List Type","type":"choice","choices":[{"label":"Card List","value":"Card List"},{"label":"Simple List","value":"Simple List"}]},{"name":"card_behaviour","section":"other","default_value":"single","label":"Card Behaviour","type":"choice","choices":[{"label":"Single","value":"single"},{"label":"Wrap","value":"wrap"}]},{"name":"load_config","section":"other","default_value":"async","label":"Load configuration","type":"choice","choices":[{"label":"Synchronous","value":"sync"},{"label":"Asynchronous","value":"async"}]},{"hint":"Shows empty state if the widget content is empty.","name":"show_empty_state","section":"other","default_value":"false","label":"Show empty state","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    if (input && input.widgetOptions)
+        options = input.widgetOptions;
+    data.load_config = options.load_config;
+    data.asyncLoad = options.async_load || false;
+
+    if (data.load_config === "async" && !input && !data.asyncLoad)
+        return;
+
+    var maxDisplayCount = 10;
+    data.instanceId = $sp.getDisplayValue("sys_id");
+    var stats = {};
+    stats.callerId = data.instanceId;
+    stats.textPrefix = 'Relevant for you';
+    stats.startTime = new GlideDateTime();
+    stats.shortDesc = 'Load Data';
+    stats.guid = gs.generateGUID();
+
+    data.title = gs.getMessage(options.title);
+    data.userPredictionCount = options.user_prediction_count;
+    data.cardType = (options.list_type === 'Card List') ? options.card_behaviour + '' : '';
+    data.listType = (options.list_type === 'Card List') ? 'card-list' : 'simple-link';
+    data.showEmptyState = options.show_empty_state;
+    var knowledgeBases = String($sp.getKnowledgeBases());
+
+    var displayCount = options.limit > maxDisplayCount ? maxDisplayCount : options.limit;
+    data.viewType = (displayCount > 3) ? 'max-view' : 'min-view';
+    var recentActivityCutoffInDays = gs.getProperty('recent.activity.cutoff.days') || options.recent_activity_cut_off_in_days;
+    var recentActivityCutoffDate = new GlideDateTime();
+    recentActivityCutoffDate.addDaysLocalTime(-recentActivityCutoffInDays);
+
+    var relevantForYouWidgetSysId = '6cc836d0dbf700500c209493db961914';
+
+    var RelevantForYouUtil = new sn_hr_sp.RelevantForYouUtil(data.instanceId, stats.guid);
+
+    var taxonomyId = $sp.getTaxonomies();
+    var catalogPayload = {
+        users: null,
+        catalogCount: displayCount,
+        ignoredCatalogs: null,
+        recentActivityCutoffDate: recentActivityCutoffDate,
+        taxonomyId: taxonomyId
+    };
+    var articlesPayload = {
+        users: null,
+        knowledgeBases: knowledgeBases,
+        kbRecords: $sp.getAllKBRecords(knowledgeBases),
+        articleCount: displayCount,
+        recentActivityCutoffDate: recentActivityCutoffDate,
+        taxonomyId: taxonomyId
+    };
+
+    if (options.category === 'knowledge')
+        data.dataItems = RelevantForYouUtil.getRelevantArticlesAndCatalogs(articlesPayload, null, displayCount, data.userPredictionCount, taxonomyId);
+    else if (options.category === 'catalog')
+        data.dataItems = RelevantForYouUtil.getRelevantArticlesAndCatalogs(null, catalogPayload, displayCount, data.userPredictionCount, taxonomyId);
+    else
+        data.dataItems = RelevantForYouUtil.getRelevantArticlesAndCatalogs(articlesPayload, catalogPayload, displayCount, data.userPredictionCount, taxonomyId);
+    data.widgetsData = getWidgetsData(data.dataItems, data.listType);
+
+    new sn_ex_sp.PerformanceIndicatorUtil().postInstanceHotspot(stats);
+
+       data.sysUserID = gs.getUserID();
+
+
+               if (!data.sysUserID)
+
+
+                                         data.sysUserID = gs.getUser().getID();
+
+
+       var sysUserGR = new GlideRecord("sys_user");
+
+
+       data.userExists = sysUserGR.get(data.sysUserID);
+
+
+
+       if (data.userExists) {
+
+
+               data.name = sysUserGR.getValue("first_name");
+
+
+       } else {
+
+
+               data.name = "User"
+
+
+       }     
+
+
+
+
+
+	
+    function getWidgetsData(dataResults, listType) {
+        listType = (listType === 'card-list') ? 'card' : 'simple_link';
+        var dataPayload = [];
+        dataResults.forEach(function(article) {
+            var itemPayload = {};
+            var widgetName = article.category == 'catalog' ? 'catalog-content' : 'kb-content';
+            itemPayload.widgetTitle = options.title;
+            itemPayload.content = article.sys_id;
+            itemPayload.content_table = article.category == 'catalog' ? 'sc_cat_item' : 'kb_knowledge';
+            itemPayload.listType = listType;
+            itemPayload.widgetSysId = relevantForYouWidgetSysId;
+            itemPayload.widgetData = $sp.getWidget(widgetName, itemPayload);
+            dataPayload.push(itemPayload.widgetData);
+        });
+        return dataPayload;
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-27 13:14:46</sys_created_on>
+        <sys_id>57c3e84747333690a0d66d1f316d436b</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Relevant for you name</sys_name>
+        <sys_package display_value="Employee Onboarding App" source="f35861a4477b3250a0d66d1f316d432e">f35861a4477b3250a0d66d1f316d432e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Employee Onboarding App">f35861a4477b3250a0d66d1f316d432e</sys_scope>
+        <sys_update_name>sp_widget_57c3e84747333690a0d66d1f316d436b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-27 13:15:21</sys_updated_on>
+        <template><![CDATA[<div id="recommendations-dashboard-section" class="recommendations-dashboard-section panel panel-default b panel-wrapper instance-{{c.data.instanceId}}" ng-if = "(c.data.widgetsData.length > 0 && c.data.instanceId.length > 0) || data.showEmptyState === 'true'" ng-class="(c.data.listType === 'simple-link' || c.data.cardType === 'wrap') || (data.showEmptyState === 'true' && (c.data.widgetsData.length === 0 || c.data.instanceId.length === 0)) ? '': 'recommended-card-section'">
+  <div class="panel-heading b-b">
+    <h3 id="{{data.instanceId}}-widget-title" class="panel-title">
+      {{::c.data.title}} {{data.name}}
+    </h3>
+  </div>
+  <div class="rfy-empty-state" ng-if = "data.showEmptyState === 'true' && (c.data.widgetsData.length === 0 || c.data.instanceId.length === 0)">
+    <p>
+      ${We don't have any recommendations to show you yet.}
+    </p>
+  </div>
+  <div class="panel-body" ng-if = "c.data.widgetsData.length > 0 && c.data.instanceId.length > 0"  aria-labelledby="{{data.instanceId}}-widget-title" role="region">
+    <div class="contents-section {{c.data.instanceId}}-contents-section" id="{{c.data.listType}}-contents-section" ng-class="(c.data.cardType === 'single' && c.data.listType === 'card-list') ? 'content-section-single-cards' : ''">
+      <div id="body-content" class="{{c.options.card_behaviour}} {{c.data.listType}} {{c.data.instanceId}}-body-content" ng-repeat="widgetData in c.data.widgetsData" ng-class="c.data.listType === 'simple-link' ? '': 'card-body-content'">
+        <div class="flex-item-card" id="{{c.data.listType}}-widget-body" ng-class="{'card-border' : c.data.listType === 'card-list'}">
+          <sp-widget widget="widgetData"></sp-widget>
+        </div>
+      </div>
+    </div>
+    <div tabindex="-1" role="button" aria-label="${Click to swipe the cards to left}" ng-show="c.showLeftArrow()" ng-if="c.data.cardType === 'single' && c.data.listType === 'card-list'" class="swipe-button" id="{{c.data.instanceId}}-left-swipe" ng-click="c.moveLeft()"><span class="glyphicon glyphicon-menu-left" id="icon"></span></div>
+    <div tabindex="-1" role="button" aria-label="${Click to swipe the cards to right}" ng-show="c.showRightArrow()" ng-if="c.data.cardType === 'single' && c.data.listType === 'card-list'" class="swipe-button" id="{{c.data.instanceId}}-right-swipe" ng-click="c.moveRight()" ng-style="{marginLeft: c.getRightSwipeMargin()}"><span class="glyphicon glyphicon-menu-right" id="icon"></span></div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>
